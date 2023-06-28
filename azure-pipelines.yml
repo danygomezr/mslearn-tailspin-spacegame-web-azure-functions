@@ -84,25 +84,25 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              azureSubscription: 'Primario ARKADE(75cf9b50-e1aa-4c48-ad1c-0d3288a2faa5)'
+              appType: 'webAppLinux'
               appName: '$(WebAppName)'
-              appType: webAppLinux
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/Tailspin.SpaceGame.Web.zip'
           - task: AzureFunctionApp@1
             displayName: 'Azure Function Deploy: leaderboard'
             inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appType: functionAppLinux
+              azureSubscription: 'Primario ARKADE(75cf9b50-e1aa-4c48-ad1c-0d3288a2faa5)'
+              appType: 'functionAppLinux'
               appName: '$(LeaderboardAppName)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/Tailspin.SpaceGame.LeaderboardFunction.zip'
-              runtimeStack: DOCKER|microsoft/azure-functions-dotnet:4
+              runtimeStack: 'DOTNET|6.0'
               startUpCommand: 'func azure functionapp publish $(functionAppName) --no-bundler'
           - task: AzureAppServiceSettings@1
             displayName: 'Update web app settings'
             inputs:
-              azureSubscription: 'Resource Manager - Tailspin - Space Game'
-              appName: $(WebAppName)
-              resourceGroupName: $(ResourceGroupName)
+              azureSubscription: 'Primario ARKADE(75cf9b50-e1aa-4c48-ad1c-0d3288a2faa5)'
+              appName: '$(WebAppName)'
+              resourceGroupName: '$(ResourceGroupName)'
               appSettings: |
                 [
                   {
